@@ -62,7 +62,7 @@ echo "Writing out $TOMCAT_SETENV_FILE file"
 
 JAVA_OPTS="$OMRS_JAVA_SERVER_OPTS"
 
-OMRS_JAVA_MEMORY_OPTS="-Xms128m -Xmx512m -XX:+UseSerialGC -XX:MaxMetaspaceSize=128m"
+OMRS_JAVA_MEMORY_OPTS="-Xms256m -Xmx1024m -XX:+UseSerialGC -XX:MaxMetaspaceSize=256m"
 
 # Combina ambas (memoria + server opts + propiedades de OpenMRS)
 CATALINA_OPTS="${OMRS_JAVA_MEMORY_OPTS} ${JAVA_OPTS} \
