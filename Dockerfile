@@ -133,7 +133,7 @@ RUN mkdir -p /openmrs/data/modules \
     && mkdir -p /openmrs/data/complex_obs \
     && mkdir -p /openmrs/data/activemq-data \
     && chmod -R g+rw /openmrs
-    
+
 # Copy in the start-up scripts
 COPY --from=dev /openmrs/wait-for-it.sh /openmrs/startup-init.sh /openmrs/startup.sh /openmrs/
 RUN chmod g+x /openmrs/wait-for-it.sh && chmod g+x /openmrs/startup-init.sh && chmod g+x /openmrs/startup.sh
@@ -144,7 +144,8 @@ COPY --from=dev /openmrs_core/LICENSE LICENSE
 # Copy the app
 COPY --from=dev /openmrs/distribution/openmrs_core/openmrs.war /openmrs/distribution/openmrs_core/openmrs.war
 
-EXPOSE 8080
+ENV PORT=8080
+EXPOSE ${PORT}
 
 # Run as non-root user using Bitnami approach, see e.g.
 # https://github.com/bitnami/containers/blob/6c8f10bbcf192ab4e575614491abf10697c46a3e/bitnami/tomcat/8.5/debian-11/Dockerfile#L54
@@ -153,5 +154,5 @@ USER 1001
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # See startup-init.sh for all configurable environment variables
-CMD ["/openmrs/startup.sh"]
+CMD ["sh", "-c", "/openmrs/startup.sh --port=${PORT}"]
 
