@@ -149,6 +149,10 @@ EXPOSE ${PORT}
 
 # Run as non-root user using Bitnami approach, see e.g.
 # https://github.com/bitnami/containers/blob/6c8f10bbcf192ab4e575614491abf10697c46a3e/bitnami/tomcat/8.5/debian-11/Dockerfile#L54
+RUN mkdir -p /usr/local/tomcat/conf/Catalina/localhost && \
+    chmod -R g+rwX /usr/local/tomcat/conf && \
+    chmod -R g+rwX /usr/local/tomcat/webapps
+
 USER 1001
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
